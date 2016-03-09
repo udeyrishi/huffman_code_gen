@@ -4,6 +4,10 @@
 
 using namespace std;
 
+Code::Code(unordered_map<string, double> pmfOfSymbols) : pmfOfSymbols(pmfOfSymbols) {
+    // TODO: check probability sums to 1
+}
+
 double Code::getAverageCodeLength() {
     double averageCodeLength = 0;
     int codeLength;

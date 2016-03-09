@@ -3,15 +3,16 @@
 #include <unordered_map>
 #include <string>
 
+using namespace std;
+
 class Code {
 public:
-    Code(std::unordered_map<std::string, double> pmfOfSymbols)
-        : pmfOfSymbols(pmfOfSymbols) {}
-    virtual std::unordered_map<std::string, std::string> getCode() = 0;
+    Code(unordered_map<string, double> pmfOfSymbols);
+    virtual unordered_map<string, string> getCode() = 0;
     double getAverageCodeLength();
     double getEntropy();
     double getCodeEfficiency();
 
 protected:
-    std::unordered_map<std::string, double> pmfOfSymbols;
+    unordered_map<string, double> pmfOfSymbols;
 };
