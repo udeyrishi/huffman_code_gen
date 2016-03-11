@@ -9,36 +9,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CC 			:= g++
-FLAGS 		:= -std=c++14
+CC          := g++
+FLAGS       := -std=c++14
 
-MKDIR_P 	:= mkdir -p
-RM_DIR 		:= $(RM) -r
+MKDIR_P     := mkdir -p
+RM_DIR      := $(RM) -r
 
-OUT_DIR 	:= bin
-TARGET 		:= huffman
-SRC_DIR		:= src
-SRC	 		:= main.cpp HuffmanCode.cpp Code.cpp Symbol.cpp StringUtils.cpp \
-			   DoubleUtils.cpp
+OUT_DIR     := bin
+TARGET      := huffman
+SRC_DIR     := src
+SRC         := main.cpp HuffmanCode.cpp Code.cpp Symbol.cpp StringUtils.cpp DoubleUtils.cpp
 
 #--------------------------DON'T TOUCH BELOW THIS-------------------------------
-OBJS 		:= $(SRC:.cpp=.o)
-OBJS 		:= $(addprefix $(OUT_DIR)/, $(OBJS))
+OBJS        := $(SRC:.cpp=.o)
+OBJS        := $(addprefix $(OUT_DIR)/, $(OBJS))
+TARGET      := $(OUT_DIR)/$(TARGET)
 
 .PHONY: directories clean
 
 default: all
 
-all: directories $(OUT_DIR)/$(TARGET)
+all: directories $(TARGET)
 
 directories:
 	@$(MKDIR_P) $(OUT_DIR)
 
-$(OUT_DIR)/$(TARGET): $(OBJS)
-	$(CC) $(FLAGS) -o $(OUT_DIR)/$(TARGET) $(OBJS)
+$(TARGET): $(OBJS)
+	$(CC) $(FLAGS) -o $(TARGET) $(OBJS)
 
 $(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(FLAGS) -c $<  -o $@
 
 clean:
 	$(RM_DIR) $(OUT_DIR)
+
+rebuild: clean all
