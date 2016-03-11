@@ -68,23 +68,8 @@ void HuffmanCode::formHuffmanCodes(stack<Symbol> &sortedSymbolsStack,
         Symbol second = StackUtils::topAndPop(sortedSymbolsStack);
         Symbol merged = first.merge(second);
 
-        if (first.isMerged()) {
-            for (const string &part : StringUtils::split(first.getSymbol(), Symbol::MERGE_SEPARATOR)) {
-                resultCodes[part] = "0" + resultCodes[part];
-            }
-        }
-        else {
-            resultCodes[first.getSymbol()] = "0";
-        }
-
-        if (second.isMerged()) {
-            for (const string &part : StringUtils::split(second.getSymbol(), Symbol::MERGE_SEPARATOR)) {
-                resultCodes[part] = "1" + resultCodes[part];
-            }
-        }
-        else {
-            resultCodes[second.getSymbol()] = "1";
-        }
+        first.addBitToSymbolChain(resultCodes, 0);
+        second.addBitToSymbolChain(resultCodes, 1);
 
         StackUtils::sortedInsert(sortedSymbolsStack, merged);
     }

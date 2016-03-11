@@ -14,13 +14,12 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
 class Symbol {
 public:
-    static const string MERGE_SEPARATOR;
-
     Symbol(string symbol, double probability) : Symbol(symbol, probability, false) {}
     Symbol(const Symbol &rhs) : Symbol(rhs.symbol, rhs.probability, rhs.merged) {}
 
@@ -34,12 +33,15 @@ public:
     double getProbability() const { return probability; }
     bool isMerged() const { return merged; }
 
+    void addBitToSymbolChain(unordered_map<string, string> &codes, int bit);
+
 private:
     Symbol(string symbol, double probability, bool merged)
         : symbol(symbol), probability(probability), merged(merged) {}
     string symbol;
     double probability;
     bool merged;
+    static const string MERGE_SEPARATOR;
 };
 
 ostream& operator<<(ostream &os, const Symbol &symbol);

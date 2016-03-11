@@ -12,7 +12,9 @@
  */
 
 #include "Symbol.hpp"
+#include "StringUtils.hpp"
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -38,6 +40,21 @@ Symbol& Symbol::operator=(const Symbol &rhs) {
     }
 
     return *this;
+}
+
+void Symbol::addBitToSymbolChain(unordered_map<string, string> &codes, int bit) {
+    if (bit > 1 || bit < 0) {
+        throw invalid_argument("Bit values can either be 0 or 1.");
+    }
+
+    if (isMerged()) {
+        for (const string &part : StringUtils::split(getSymbol(), MERGE_SEPARATOR)) {
+            codes[part] = to_string(bit) + codes[part];
+        }
+    }
+    else {
+        codes[getSymbol()] = to_string(bit);
+    }
 }
 
 ostream& operator<<(ostream &os, const Symbol &symbol) {
