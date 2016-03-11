@@ -19,6 +19,12 @@
 
 using namespace std;
 
+HuffmanCode::HuffmanCode(unordered_map<string, double> pmfOfSymbols) : Code(pmfOfSymbols) {
+    for (const auto &symbol : pmfOfSymbols) {
+        Symbol::assertValid(symbol.first);
+    }
+}
+
 stack<Symbol> HuffmanCode::getSortedSymbolsStack() const {
     vector<Symbol> sortedSymbols;
     for (const pair<string, double> &symbol : pmfOfSymbols) {

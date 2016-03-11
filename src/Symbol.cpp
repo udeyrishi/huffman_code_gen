@@ -15,10 +15,18 @@
 #include "StringUtils.hpp"
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 
 using namespace std;
 
-const string Symbol::MERGE_SEPARATOR = "-";
+const string Symbol::MERGE_SEPARATOR = "----____----";
+
+Symbol::Symbol(string symbol, double probability, bool merged)
+        : symbol(symbol), probability(probability), merged(merged) {
+    if (!merged) {
+        assertValid(symbol);
+    }
+}
 
 Symbol Symbol::merge(const Symbol &other) {
     return Symbol(symbol + MERGE_SEPARATOR + other.symbol, probability + other.probability, true);
@@ -42,7 +50,7 @@ Symbol& Symbol::operator=(const Symbol &rhs) {
     return *this;
 }
 
-void Symbol::addBitToSymbolChain(unordered_map<string, string> &codes, int bit) {
+void Symbol::addBitToSymbolChain(unordered_map<string, string> &codes, int bit) const {
     if (bit > 1 || bit < 0) {
         throw invalid_argument("Bit values can either be 0 or 1.");
     }
@@ -54,6 +62,19 @@ void Symbol::addBitToSymbolChain(unordered_map<string, string> &codes, int bit) 
     }
     else {
         codes[getSymbol()] = to_string(bit);
+    }
+}
+
+bool Symbol::isValid(const string symbol) {
+    return symbol.find(MERGE_SEPARATOR) == string::npos;
+}
+
+void Symbol::assertValid(const string symbol) {
+    if (!isValid(symbol)) {
+        ostringstream exceptionMessage;
+        exceptionMessage << "'" << symbol << "' is not an acceptable symbol. ";
+        exceptionMessage << "Symbols shouldn't contain '" << MERGE_SEPARATOR << "' substring.";
+        throw invalid_argument(exceptionMessage.str());
     }
 }
 

@@ -22,7 +22,7 @@ vector<string> StringUtils::split(string str, string delimiter) {
     size_t next = 0;
     while ((next = str.find(delimiter, last)) != string::npos) {
         parts.push_back(str.substr(last, next-last));
-        last = next + 1;
+        last = next + delimiter.length();
     }
     parts.push_back(str.substr(last));
     return parts;

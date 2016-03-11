@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 const long DOUBLE_ERR_FACTOR = 1.0e12;
 using namespace std;
@@ -30,17 +31,29 @@ int main(int argc, char **argv) {
 
     unordered_map<string, double> pmf;
     for (int i = 1; i < argc; i += 2) {
-        pmf[argv[i]] = stod(argv[i+1]);
+        try {
+            pmf[argv[i]] = stod(argv[i+1]);
+        }
+        catch (const invalid_argument &ex) {
+            cerr << "Probabilities need to be numbers." << endl;
+            return -1;
+        }
     }
 
     if (!checkValidPmf(pmf)) {
-        cout << "Sum of all the probabilities in the PMF should be 1" << endl;
+        cerr << "Sum of all the probabilities in the PMF should be 1" << endl;
         return -1;
     }
 
-    HuffmanCode huffmanCode(pmf);
-    cout << huffmanCode;
-    return 0;
+    try {
+        HuffmanCode huffmanCode(pmf);
+        cout << huffmanCode;
+        return 0;
+    }
+    catch (const invalid_argument &ex) {
+        cerr << ex.what() << endl;
+        return -1;
+    }
 }
 
 bool checkValidPmf(const unordered_map<string, double> &pmf) {

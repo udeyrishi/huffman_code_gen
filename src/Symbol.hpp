@@ -23,6 +23,9 @@ public:
     Symbol(string symbol, double probability) : Symbol(symbol, probability, false) {}
     Symbol(const Symbol &rhs) : Symbol(rhs.symbol, rhs.probability, rhs.merged) {}
 
+    static bool isValid(const string symbol);
+    static void assertValid(const string symbol);
+
     Symbol merge(const Symbol &other);
 
     Symbol& operator=(const Symbol &rhs);
@@ -33,15 +36,16 @@ public:
     double getProbability() const { return probability; }
     bool isMerged() const { return merged; }
 
-    void addBitToSymbolChain(unordered_map<string, string> &codes, int bit);
+    void addBitToSymbolChain(unordered_map<string, string> &codes, int bit) const;
 
 private:
-    Symbol(string symbol, double probability, bool merged)
-        : symbol(symbol), probability(probability), merged(merged) {}
+    static const string MERGE_SEPARATOR;
+
     string symbol;
     double probability;
     bool merged;
-    static const string MERGE_SEPARATOR;
+
+    Symbol(string symbol, double probability, bool merged);
 };
 
 ostream& operator<<(ostream &os, const Symbol &symbol);
