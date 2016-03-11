@@ -7,7 +7,7 @@ using namespace std;
 
 class Code {
 public:
-    Code(unordered_map<string, double> pmfOfSymbols);
+    Code(unordered_map<string, double> pmfOfSymbols) : pmfOfSymbols(pmfOfSymbols) {};
     virtual unordered_map<string, string> getCode() const = 0;
     double getAverageCodeLength() const;
     double getEntropy() const;

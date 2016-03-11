@@ -1,18 +1,17 @@
 #include "HuffmanCode.hpp"
+#include "DoubleUtils.hpp"
 #include <unordered_map>
 #include <iostream>
 #include <string>
 
+const long DOUBLE_ERR_FACTOR = 1.0e12;
 using namespace std;
 
-void usage(string programName) {
-    cerr << "Usage: " << programName << " <symbol1> <prob1> <symbol2> <prob2> ..." << endl;
-    cerr << "Sum of all probabilities should be near 1 +/- 0.0000005" << endl;
-}
+bool checkValidPmf(const unordered_map<string, double> &pmf);
 
 int main(int argc, char **argv) {
     if (argc < 2 || argc % 2 == 0) {
-        usage(argv[0]);
+        cerr << "Usage: " << argv[0] << " <symbol1> <prob1> <symbol2> <prob2> ..." << endl;
         return -1;
     }
 
@@ -21,7 +20,21 @@ int main(int argc, char **argv) {
         pmf[argv[i]] = stod(argv[i+1]);
     }
 
+    if (!checkValidPmf(pmf)) {
+        cout << "Sum of all the probabilities in the PMF should be 1" << endl;
+        return -1;
+    }
+
     HuffmanCode huffmanCode(pmf);
-    cout << huffmanCode << endl;
+    cout << huffmanCode;
     return 0;
+}
+
+bool checkValidPmf(const unordered_map<string, double> &pmf) {
+    double sumProbabilities = 0.0;
+    for (const auto &probability : pmf) {
+        sumProbabilities += probability.second;
+    }
+
+    return DoubleUtils::areNearlyEqual(sumProbabilities, 1.0, DOUBLE_ERR_FACTOR);
 }

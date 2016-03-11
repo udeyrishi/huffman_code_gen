@@ -1,8 +1,8 @@
 #include "HuffmanCode.hpp"
-#include <algorithm>
-#include <vector>
 #include "StackUtils.hpp"
 #include "StringUtils.hpp"
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 

@@ -7,7 +7,8 @@ RM_DIR 		:= $(RM) -r
 OUT_DIR 	:= bin
 TARGET 		:= huffman
 SRC_DIR		:= src
-SRC	 		:= main.cpp HuffmanCode.cpp Code.cpp Symbol.cpp StringUtils.cpp
+SRC	 		:= main.cpp HuffmanCode.cpp Code.cpp Symbol.cpp StringUtils.cpp \
+			   DoubleUtils.cpp
 
 #--------------------------DON'T TOUCH BELOW THIS-------------------------------
 OBJS 		:= $(SRC:.cpp=.o)

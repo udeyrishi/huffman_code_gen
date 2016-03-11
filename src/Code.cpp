@@ -5,10 +5,6 @@
 
 using namespace std;
 
-Code::Code(unordered_map<string, double> pmfOfSymbols) : pmfOfSymbols(pmfOfSymbols) {
-    // TODO: check probability sums to 1
-}
-
 double Code::getAverageCodeLength() const {
     double averageCodeLength = 0;
     int codeLength;
@@ -53,7 +49,7 @@ ostream& operator<<(ostream &os, const Code &code) {
 
     os << "Average code length: " << code.getAverageCodeLength() << endl;
     os << "Entropy: " << code.getEntropy() << endl;
-    os << "Efficiency: " << code.getEfficiency() * 100 << "\%" << endl;
+    os << "Efficiency: " << code.getEfficiency() * 100 << "%" << endl;
 
     return os;
 }
