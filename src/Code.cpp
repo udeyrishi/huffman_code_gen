@@ -57,7 +57,7 @@ ostream& operator<<(ostream &os, const Code &code) {
 
     os << "Huffman Code: " << endl;
     for (const auto &c : _code) {
-        os << "(" << c.first << "," << c.second << ") " << endl;
+        os << "(" << c.first << ", " << c.second << ") " << endl;
     }
 
     os << "Average code length: " << code.getAverageCodeLength() << endl;
