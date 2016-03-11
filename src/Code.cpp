@@ -15,6 +15,7 @@
 #include <math.h>
 #include <limits>
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -54,9 +55,10 @@ double Code::getEfficiency() const {
 
 ostream& operator<<(ostream &os, const Code &code) {
     unordered_map<string, string> _code = code.getCode();
+    map<string, string> sortedCode(_code.begin(), _code.end());
 
     os << "Huffman Code: " << endl;
-    for (const auto &c : _code) {
+    for (const auto &c : sortedCode) {
         os << "(" << c.first << ", " << c.second << ") " << endl;
     }
 

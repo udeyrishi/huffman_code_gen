@@ -17,9 +17,9 @@ $ bin/huffman <symbol1> <prob1> <symbol2> <prob2> ...
 # Example:
 $ bin/huffman a 0.1 b 0.2 c 0.6 d 0.06 e 0.04
 Huffman Code:
+(a, 001)
 (b, 01)
 (c, 1)
-(a, 001)
 (d, 0001)
 (e, 0000)
 Average code length: 1.7
