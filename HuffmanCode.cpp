@@ -6,7 +6,7 @@
 
 using namespace std;
 
-stack<Symbol> HuffmanCode::getSortedSymbolsStack() {
+stack<Symbol> HuffmanCode::getSortedSymbolsStack() const {
     vector<Symbol> sortedSymbols;
     for (const pair<string, double> &symbol : pmfOfSymbols) {
         sortedSymbols.push_back(Symbol(symbol.first, symbol.second));
@@ -24,7 +24,7 @@ stack<Symbol> HuffmanCode::getSortedSymbolsStack() {
     return sortedSymbolsStack;
 }
 
-unordered_map<string, string> HuffmanCode::getCode() {
+unordered_map<string, string> HuffmanCode::getCode() const {
     unordered_map<string, string> codes;
     stack<Symbol> symbols = getSortedSymbolsStack();
 
@@ -44,7 +44,7 @@ unordered_map<string, string> HuffmanCode::getCode() {
 }
 
 void HuffmanCode::formHuffmanCodes(stack<Symbol> &sortedSymbolsStack,
-                                   unordered_map<string, string> &resultCodes) {
+                                   unordered_map<string, string> &resultCodes) const {
 
     if (sortedSymbolsStack.size() < 2) {
         throw invalid_argument("Need at least 2 symbols to form the Huffman Code");
